@@ -6,3 +6,4 @@
 - 本地模块 `android-dynamic`：算法助手 Pro 全部 34 个 MCP 工具，实测记录请求/响应
 - 远程路由：静态分析等任务委托 reverse-skill
 - 脚本：mcp.py / aide.py / master-route.py / extract-summaries.py / test-tools.py
+- README_AI.md：AI Agent 引导（自动配置流程、报告格式、客户端集成）

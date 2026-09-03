@@ -4,6 +4,8 @@ Android 动态分析技能路由包。通过 MCP 协议连接 [算法助手 Pro]
 
 静态分析、二进制逆向、前端逆向等非动态分析任务，路由到远程 [reverse-skill](https://github.com/zhaoxuya520/reverse-skill)。
 
+AI Agent 从 [README_AI.md](README_AI.md) 引导进入。
+
 ## 结构
 
 ```
