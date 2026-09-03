@@ -1,0 +1,6 @@
+# Ignore local test scratch
+_test/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store

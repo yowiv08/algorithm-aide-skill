@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0",
+  "meta": {
+    "description": "算法助手技能包任务路由的单一事实源 (Single Source of Truth)。master-route.py / extract-summaries.py 均从此文件读取。修改路由规则请只改此文件；routing.md 与此保持一致。",
+    "fallbackId": "R0",
+    "scoring": "每条关键字规则命中后计入候选集；按 priority 数组顺序取命中分数最高者为 PRIMARY；分数并列时 priority 靠前者胜出；未命中任何规则时回退 fallbackId。",
+    "remoteBase": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills"
+  },
+  "routes": {
+    "R1": {
+      "label": "Android 动态分析（算法助手）",
+      "skill": "android-dynamic/SKILL.md",
+      "remote": false,
+      "keywords": [
+        { "must": "算法助手|algorithm.?aide|动态分析|动态.?hook|实时.?hook|运行时.?hook|hook.?日志|实时.?日志|算法.?日志|签名.?算法|加密.?算法.?分析|md5.?分析|哈希.?分析|加解密.?hook|行为监听|算法还原|日志.?采集|采集.*日志|点击.?行为|行为.?日志", "note": "动态/实时/Hook/算法日志语境归本地模块" },
+        { "must": "frida", "mustAll": ["脚本|script|日志|log|hook|注入|enable|import|启用|导入"], "note": "Frida 脚本管理与 Frida 日志归本地模块；纯静态 Frida 逆向归 R5" },
+        { "must": "android|安卓", "mustAll": ["hook|监听|动态|运行|启动|强停|日志"], "note": "Android + 动态语境归本地模块" },
+        { "must": "hook", "mustAll": ["\\bapp\\b|应用|包名|登录|启动"], "note": "Hook + 应用语境归本地模块（对应用做运行时干预）" }
+      ]
+    },
+    "R2": {
+      "label": "APK 静态逆向（远程 reverse-skill）",
+      "skill": "apk-reverse/SKILL.md",
+      "remote": true,
+      "keywords": [
+        { "must": "\\bapk\\b|smali|jadx|apktool|反编译.?apk|apk.?加固|重打包|root.?检测|证书.?校验|certificate.?pinning", "exclude": "动态|hook|实时|日志", "note": "静态 APK 分析委托远程" }
+      ]
+    },
+    "R3": {
+      "label": "iOS / 移动通用逆向（远程 reverse-skill）",
+      "skill": "mobile-reverse/SKILL.md",
+      "remote": true,
+      "keywords": [
+        { "must": "\\bipa\\b|ios.?reverse|ios.?逆向|objection|mobsf|越狱|jailbreak" }
+      ]
+    },
+    "R4": {
+      "label": "前端 JS 逆向（远程 reverse-skill）",
+      "skill": "js-reverse/SKILL.md",
+      "remote": true,
+      "keywords": [
+        { "must": "js.?逆向|webpack.?逆向|前端.?签名|加密.?参数|抓包|http.?capture|请求.?重放|request.?replay|cryptojs" }
+      ]
+    },
+    "R5": {
+      "label": "二进制静态分析（远程 reverse-skill）",
+      "skill": "ida-reverse/SKILL.md",
+      "remote": true,
+      "keywords": [
+        { "must": "\\bida\\b|ghidra|radare|\\br2\\b|反汇编|\\.so\\b|so.?文件|\\.elf\\b|native.?分析|\\bjni\\b|脱壳|修复.?so" }
+      ]
+    },
+    "R6": {
+      "label": "渗透 / 恶意软件 / CTF / 其他（远程 reverse-skill 总控）",
+      "skill": "SKILL.md",
+      "remote": true,
+      "remoteRoot": true,
+      "keywords": [
+        { "must": "渗透|pentest|恶意.?软件|malware|\\bctf\\b|漏洞|exploit|\\bpwn\\b|固件|firmware|取证" }
+      ]
+    },
+    "R0": {
+      "label": "回退：reverse-skill 总控（远程）",
+      "skill": "SKILL.md",
+      "remote": true,
+      "remoteRoot": true,
+      "keywords": []
+    }
+  },
+  "priority": ["R1", "R2", "R3", "R4", "R5", "R6", "R0"]
+}
